@@ -26,6 +26,7 @@
         <module>huang-order</module>
         <module>huang-product</module>
         <module>huang-ware</module>
+        <module>renren-fast-master</module>
     </modules>
 
     <dependencies>
