@@ -8,4 +8,4 @@ spring:
   profiles:
     active: dev
   application:
-    name: huang-member
+    name: huang-ware

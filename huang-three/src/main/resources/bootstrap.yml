@@ -7,4 +7,5 @@ spring:
         namespace: huang-dev
   profiles:
     active: dev
-
+  application:
+    name: huang-three

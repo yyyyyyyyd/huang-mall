@@ -8,8 +8,8 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
- * 
+ *
+ *
  * @author Huangyidan
  * @email 1360532612@qq.com
  * @date 2023-03-17 10:15:41
@@ -20,40 +20,40 @@ public class UndoLogEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 *
 	 */
 	@TableId
 	private Long id;
 	/**
-	 * 
+	 *
 	 */
 	private Long branchId;
 	/**
-	 * 
+	 *
 	 */
 	private String xid;
 	/**
-	 * 
+	 *
 	 */
 	private String context;
 	/**
-	 * 
+	 *
 	 */
-	private Longblob rollbackInfo;
+	private byte[] rollbackInfo;
 	/**
-	 * 
+	 *
 	 */
 	private Integer logStatus;
 	/**
-	 * 
+	 *
 	 */
 	private Date logCreated;
 	/**
-	 * 
+	 *
 	 */
 	private Date logModified;
 	/**
-	 * 
+	 *
 	 */
 	private String ext;
 
