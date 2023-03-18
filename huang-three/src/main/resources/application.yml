@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://124.70.103.68:3306/gulimall-pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: huangyidan
+  application:
+    name: huang-three
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: huang-dev
+
+
+server:
+  port: 7006
+
+#阿里云配置
+#  AccessKey ID
+#  LTAI5tEK2PJv5zVY85orR9To
+#
+#  AccessKey Secret
+#  PDKdceWiGsW65k91Qa6yiJ4ekPOjRm
+#aliyun:
+#  oss:
+#    file:
+#      endpoint: oss-cn-hangzhou.aliyuncs.com
+#      keyid: LTAI5tEK2PJv5zVY85orR9To
+#      keysecret: PDKdceWiGsW65k91Qa6yiJ4ekPOjRm
+#      bucketname: srb-file-20001231
+alibaba:
+  cloud:
+    access-key: LTAI5tEK2PJv5zVY85orR9To
+    secret-key: PDKdceWiGsW65k91Qa6yiJ4ekPOjRm
+    bucketname: srb-file-20001231
+    oss:
+      endpoint: oss-cn-hangzhou.aliyuncs.com
+
+

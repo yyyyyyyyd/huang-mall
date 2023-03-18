@@ -1,14 +1,11 @@
 package com.huang.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.huang.product.entity.CategoryEntity;
 import com.huang.product.service.CategoryService;
@@ -31,9 +28,21 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
+     * @return {@code R }
+     * @description: 查出树形列表
+     * @author 黄熠丹 221231005
+     * @date 2023/03/17
+     */
+    @GetMapping("/list/tree")
+    public R list(){
+        List<CategoryEntity> list = categoryService.listWithTree();
+        return R.ok().put("data", list);
+    }
+
+    /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = categoryService.queryPage(params);
 
@@ -77,7 +86,6 @@ public class CategoryController {
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] catIds){
 		categoryService.removeByIds(Arrays.asList(catIds));
-
         return R.ok();
     }
 

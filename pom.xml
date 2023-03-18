@@ -21,6 +21,8 @@
     </properties>
 
     <modules>
+        <module>huang-search</module>
+        <module>huang-three</module>
         <module>huang-gateway</module>
         <module>huang-common</module>
         <module>huang-coupon</module>

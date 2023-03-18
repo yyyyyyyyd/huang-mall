@@ -28,4 +28,15 @@ class HuangProductApplicationTests {
         List<CategoryEntity> list = categoryService.list();
         log.info("数量为{}",list.size());
     }
+
+
+    public static void main(String[] args) {
+        int count = 0;
+        while (true){
+            count ++;
+            if (count < 20){
+                System.out.println("hello ！");
+            }
+        }
+    }
 }

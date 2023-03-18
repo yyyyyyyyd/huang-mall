@@ -6,6 +6,12 @@ spring:
     password: huangyidan
   application:
     name: huang-ware
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        namespace: huang-dev
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:

@@ -1,14 +1,19 @@
 package com.huang.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.huang.common.utils.Query;
+import com.huang.product.entity.AttrEntity;
+import com.huang.product.entity.vo.AttrGroupWithAttrsVo;
+import com.huang.product.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.huang.product.entity.AttrGroupEntity;
 import com.huang.product.service.AttrGroupService;
@@ -30,6 +35,18 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+    @Autowired
+    private AttrService attrService;
+
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
+
+        //1、查出当前分类下的所有属性分组，
+        //2、查出每个属性分组的所有属性
+        List<AttrGroupWithAttrsVo> vos =  attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
+        return R.ok().put("data",vos);
+    }
+
     /**
      * 列表
      */
@@ -40,6 +57,20 @@ public class AttrGroupController {
         return R.ok().put("page", page);
     }
 
+    @GetMapping("/list/{catId}")
+    public R get(@PathVariable("catId") String catId,String page,String limit,String key){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("page", page);
+        map.put("limit", limit);
+        LambdaQueryWrapper<AttrGroupEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AttrGroupEntity::getCatelogId,catId);
+        queryWrapper.like(AttrGroupEntity::getAttrGroupName,key);
+        IPage<AttrGroupEntity> res = attrGroupService.page(
+                new Query<AttrGroupEntity>().getPage(map),
+                queryWrapper
+        );
+        return R.ok().put("data",new  PageUtils(res));
+    }
 
     /**
      * 信息
@@ -49,6 +80,19 @@ public class AttrGroupController {
 		AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
 
         return R.ok().put("attrGroup", attrGroup);
+    }
+
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> entities =  attrService.getRelationAttr(attrgroupId);
+        return R.ok().put("data",entities);
+    }
+
+    @GetMapping("/{attrgroupId}/noattr/relation")
+    public R attrNoRelation(@PathVariable("attrgroupId") Long attrgroupId,
+                            @RequestParam Map<String, Object> params){
+        PageUtils page = attrService.getNoRelationAttr(params,attrgroupId);
+        return R.ok().put("page",page);
     }
 
     /**

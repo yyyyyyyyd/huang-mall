@@ -1,20 +1,18 @@
 package com.huang.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.huang.product.entity.AttrEntity;
 import com.huang.product.service.AttrService;
 import com.huang.common.utils.PageUtils;
 import com.huang.common.utils.R;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -27,7 +25,8 @@ import com.huang.common.utils.R;
 @RestController
 @RequestMapping("product/attr")
 public class AttrController {
-    @Autowired
+
+    @Resource
     private AttrService attrService;
 
     /**
@@ -37,6 +36,15 @@ public class AttrController {
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = attrService.queryPage(params);
 
+        return R.ok().put("page", page);
+    }
+
+    @GetMapping("/{attrType}/list/{catelogId}")
+    public R baseAttrList(@RequestParam Map<String, Object> params,
+                          @PathVariable("catelogId") Long catelogId,
+                          @PathVariable("attrType")String type){
+
+        PageUtils page = attrService.queryBaseAttrPage(params,catelogId,type);
         return R.ok().put("page", page);
     }
 

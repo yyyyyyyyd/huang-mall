@@ -1,14 +1,12 @@
 package com.huang.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
+import jdk.internal.org.objectweb.asm.Handle;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.huang.product.entity.BrandEntity;
 import com.huang.product.service.BrandService;
@@ -32,12 +30,22 @@ public class BrandController {
 
     /**
      * 列表
+     * t=1679108810799&page=1&limit=10&key=
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = brandService.queryPage(params);
+    public R list(String page, String limit, String key) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("page", page);
+        params.put("limit", limit);
+        params.put("key", key);
+        PageUtils page1 = brandService.queryPage(params);
+        return R.ok().put("page", page1);
+    }
 
-        return R.ok().put("page", page);
+    @PostMapping("/update/status")
+    public R updateStatus(@RequestBody BrandEntity brand){
+        brandService.updateById(brand);
+        return R.ok("更新成功");
     }
 
 

@@ -31,16 +31,16 @@ public class CouponController {
     @Autowired
     private CouponService couponService;
 
-    @Value("${coupon.user.name}")
-    private String name;
+//    @Value("${coupon.user.name}")
+//    private String name;
+//
+//    @Value("${coupon.user.age}")
+//    private int age;
 
-    @Value("${coupon.user.age}")
-    private int age;
-
-    @GetMapping("/nacos")
-    public R nacos(){
-        return Objects.requireNonNull(R.ok().put("name", name)).put("age", age);
-    }
+//    @GetMapping("/nacos")
+//    public R nacos(){
+//        return Objects.requireNonNull(R.ok().put("name", name)).put("age", age);
+//    }
 
     @RequestMapping("/member/list")
     public R membercoupons(){    //全系统的所有返回都返回R

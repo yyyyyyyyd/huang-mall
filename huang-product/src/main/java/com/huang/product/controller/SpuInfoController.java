@@ -3,12 +3,9 @@ package com.huang.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.huang.product.entity.vo.SpuSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.huang.product.entity.SpuInfoEntity;
 import com.huang.product.service.SpuInfoService;
@@ -51,12 +48,22 @@ public class SpuInfoController {
         return R.ok().put("spuInfo", spuInfo);
     }
 
+    ///product/spuinfo/{spuId}/up
+    @PostMapping(value = "/{spuId}/up")
+    public R spuUp(@PathVariable("spuId") Long spuId) {
+
+        spuInfoService.up(spuId);
+
+        return R.ok();
+    }
+
+
     /**
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    public R save(@RequestBody SpuSaveVo vo){
+		spuInfoService.saveSpuInfo(vo);
 
         return R.ok();
     }

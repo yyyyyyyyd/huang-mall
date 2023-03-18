@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.huang.common.utils.PageUtils;
 import com.huang.product.entity.CategoryEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,14 @@ import java.util.Map;
 public interface CategoryService extends IService<CategoryEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * @return {@code R }
+     * @description: 查出树形列表
+     * @author 黄熠丹 221231005
+     * @date 2023/03/17
+     */
+    List<CategoryEntity> listWithTree();
+
 }
 
